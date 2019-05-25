@@ -3,6 +3,7 @@ import sys
 sys.path.append('./pytorch-cifar')
 sys.path.append('./pytorch-cifar/models')
 
+
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -16,7 +17,6 @@ import os
 import argparse
 
 from model import *
-from utils import progress_bar
 from pgd import attack
 
 parser = argparse.ArgumentParser(description='PyTorch CIFAR10 Training')
@@ -71,7 +71,7 @@ if device == 'cuda':
 
 regularization = args.reg
 
-path = ""
+path = "/home/yintianwei2000/NFP/state_dict-ep_62.pth"
 net.load_state_dict(torch.load(path))
 
 # checkpoint_name = './checkpoints/{}'.format(args.checkpoint)
@@ -127,7 +127,7 @@ def test_attack():
         mask = (targets == predicted)
         adv_images.append(torch.masked_select(inputs_pgd, mask))
 
-    save_path = ""
+    save_path = "./images"
     torch.save(adv_images, save_path)
 
 print('==> Attacking model..')
